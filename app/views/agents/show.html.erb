@@ -1,0 +1,48 @@
+<h1><%= @agent.full_name %></h1>
+<p>
+  <%= @agent.bio %>
+</p>
+<%= link_to "Add Transaction", new_agent_uploaded_transaction_path(@agent), class: "btn btn-primary" %>
+<h3>Recent Transactions</h3>
+<table class="mb-4">
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Listed</th>
+      <th>Listing Price</th>
+      <th>Sold</th>
+      <th>Selling Price</th>
+      <th>Property Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @uploaded_transactions.each do |uploaded_transaction| %>
+      <tr>
+        <td><%= uploaded_transaction.full_address %></td>
+        <td><%= uploaded_transaction.listing_date %></td>
+        <td><%= uploaded_transaction.listing_price %></td>
+        <td><%= uploaded_transaction.selling_date %></td>
+        <td><%= uploaded_transaction.selling_price %></td>
+        <td><%= uploaded_transaction.property_type %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<nav>
+  <ul class="pagination justify-content-center">
+    <li class="page-item <%= "disabled" if @uploaded_transactions.first_page? %>">
+      <%= link_to "Previous", agent_path(@agent, page: @page - 1), class: "page-link" %>
+    </li>
+    <% (1..@uploaded_transactions.total_pages).each do |page| %>
+      <li class="page-item <%= page == @page ? "active" : "" %>">
+        <%= link_to page, agent_path(@agent, page: page), class: "page-link" %>
+      </li>
+    <% end %>
+    <li class="page-item <%= "disabled" if @uploaded_transactions.last_page? %>">
+      <%= link_to "Next", agent_path(@agent, page: @page + 1), class: "page-link" %>
+    </li>
+  </ul>
+</nav>
+<div class="text-center">
+  <%= page_entries_info @uploaded_transactions, entry_name: "" %>
+</div>

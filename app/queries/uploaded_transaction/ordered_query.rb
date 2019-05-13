@@ -7,7 +7,7 @@ class UploadedTransaction::OrderedQuery
   # by selling_date but sort transactions where the `property_type` is "land"
   # or "mobile_home" at the bottom of the list
   def all
-    relation.order("CASE WHEN property_type IN ('land', 'mobile_home') THEN 1 ELSE 0 END, selling_date")
+    relation.order("CASE WHEN property_type IN ('land', 'mobile_home') THEN 1 ELSE 0 END, selling_date DESC")
   end
 
   module Scopes
