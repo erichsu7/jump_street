@@ -1,4 +1,13 @@
 <h1>Bulk Transaction Uploader</h1>
+<% if flash[:alert] %>
+  <div class="alert alert-danger" role="alert">
+    <%= flash[:alert] %>
+  </div>
+<% elsif flash[:notice] %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
 <form method="post"
   action="<%= uploaded_transactions_bulk_uploads_path %>"
   enctype="multipart/form-data"><!-- attribute equired for file uploads -->
@@ -6,7 +15,7 @@
   <div class="form-group">
     <!-- with more time i'd display the file name when chosen -->
     <label class="custom-file">
-      <input type="file" class="custom-file-input" accept=".csv">
+      <input type="file" class="custom-file-input" accept=".csv" name="file">
       <span class="custom-file-control">Choose .csv file</span>
     </label>
   </div>

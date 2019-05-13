@@ -26,3 +26,11 @@ This tool allows real estate agents to upload and manager their past real estate
 6. Optimize / speed up the `UploadedTransaction` queries - assume there are 10 million rows in that table
 7. Allow the agent to select which side of the transaction they represented (seller, buyer or both)
 8. Increase test coverage and add front-end testing
+
+
+<!--
+Picking option 1, creating a service object for it
+If we had a job queue, I would actually put this into a job. Then there would be
+another view that shows all pending uploads (would need a record to track submission
+and completion, e.g. UploadedTransactionBulkUpload)
+-->
