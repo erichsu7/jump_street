@@ -33,4 +33,6 @@ Picking option 1, creating a service object for it
 If we had a job queue, I would actually put this into a job. Then there would be
 another view that shows all pending uploads (would need a record to track submission
 and completion, e.g. UploadedTransactionBulkUpload)
+
+4: Created query object to separate display/order logic away from the model.
 -->
