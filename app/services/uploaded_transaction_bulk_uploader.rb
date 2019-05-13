@@ -2,8 +2,8 @@ require "csv"
 
 class UploadedTransactionBulkUploader
 
-  def initialize(file)
-    @file = file
+  def initialize(path)
+    @path = path
   end
 
   # raises an exception on failure. catch it in the controller.
@@ -12,7 +12,7 @@ class UploadedTransactionBulkUploader
     # upload in transaction: if any row is invalid, fail the whole job
     ActiveRecord::Base.transaction do
       # read line by line to save on memory when reading large files
-      CSV.foreach(file.tempfile.path, headers: true) do |row|
+      CSV.foreach(path, headers: true) do |row|
         # dedupe on address, zip, selling_date
         transaction = UploadedTransaction.where(address: row["address"],
                                                 zip: row["zip"],
@@ -29,11 +29,11 @@ class UploadedTransactionBulkUploader
 
   private
 
-  attr_reader :file
+  attr_reader :path
 
   def validate!
-    raise ArgumentError.new("No file selected") if file.nil?
-    raise ArgumentError.new("Invalid file type") unless file.content_type == "text/csv"
+    raise ArgumentError.new("No file selected") if path.nil? || path.length == 0
+    raise ArgumentError.new("Invalid file type") unless File.extname(path) == ".csv"
   end
 
 end

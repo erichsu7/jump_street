@@ -6,7 +6,7 @@ class UploadedTransactions::BulkUploadsController < ApplicationController
   def create
     file = params[:file]
     begin
-      ::UploadedTransactionBulkUploader.new(file).call!
+      ::UploadedTransactionBulkUploader.new(file&.tempfile&.path).call!
       flash[:notice] = "Upload succeeded"
     rescue ArgumentError => e
       flash[:alert] = e.message
