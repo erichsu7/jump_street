@@ -1,0 +1,14 @@
+<h1>Bulk Transaction Uploader</h1>
+<form method="post"
+  action="<%= uploaded_transactions_bulk_uploads_path %>"
+  enctype="multipart/form-data"><!-- attribute equired for file uploads -->
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <div class="form-group">
+    <!-- with more time i'd display the file name when chosen -->
+    <label class="custom-file">
+      <input type="file" class="custom-file-input" accept=".csv">
+      <span class="custom-file-control">Choose .csv file</span>
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

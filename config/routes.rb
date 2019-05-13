@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   resources :agents do
     resources :uploaded_transactions
   end
+
+  namespace :uploaded_transactions do
+    resources :bulk_uploads, only: [:new, :create]
+  end
 end
